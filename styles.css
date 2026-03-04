@@ -1,0 +1,1230 @@
+/* ============================================
+   ESTILOS GENERALES
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-primary: #b89b83; /* Tono tierra del logo Vita */
+    --color-primary-hover: #a38973;
+    --color-accent: #8da693; /* Menta/Sabia para "Vida" */
+    --color-accent-hover: #7b9481;
+    --color-secondary: #d9c5b2; /* Beige claro del logo */
+    --color-secondary-hover: #cbb49e;
+    --color-warning: #e2c08d;
+    --color-warning-hover: #d1b17e;
+    --color-danger: #d9a8a8;
+    --color-bg: #fbfaf8;
+    --color-bg-light: #ffffff;
+    --color-border: #eee7df;
+    --color-text: #4a443f;
+    --color-text-light: #8c857e;
+    --border-radius: 16px;
+    --shadow: 0 4px 20px rgba(184, 155, 131, 0.08);
+    --shadow-lg: 0 10px 40px rgba(184, 155, 131, 0.15);
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ============================================
+   ENCABEZADO
+   ============================================ */
+
+.header {
+    background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+    color: var(--color-text);
+    padding: 20px 30px;
+    margin: 20px 0;
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-border);
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.header-content h1 {
+    font-family: var(--font-heading);
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 0;
+    color: var(--color-primary);
+    letter-spacing: -0.03em;
+}
+
+.header-content .subtitle {
+    font-size: 0.95em;
+    opacity: 0.95;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .header-content h1 {
+        font-size: 1.8em;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ============================================
+   TOOLBAR
+   ============================================ */
+
+.toolbar {
+    background-color: #ffffff;
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--color-border);
+}
+
+@media (max-width: 768px) {
+    .toolbar {
+        gap: 8px;
+    }
+
+    .toolbar .btn {
+        flex: 1;
+        min-width: 120px;
+    }
+}
+
+/* ============================================
+   BOTONES
+   ============================================ */
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Estilos de botones por tipo */
+.btn-success {
+    background-color: #00b894;
+    /* Proper success green */
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #00a884;
+}
+
+.btn-info {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.btn-warning {
+    background-color: var(--color-warning);
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: var(--color-warning-hover);
+}
+
+.btn-secondary {
+    background-color: #999999;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #777777;
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #da190b;
+}
+
+.btn-large {
+    padding: 12px 24px;
+    font-size: 1em;
+    width: 100%;
+    max-width: 300px;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ============================================
+   TABS
+   ============================================ */
+
+.tabs-container {
+    background-color: var(--color-bg-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.tabs-buttons {
+    display: flex;
+    border-bottom: 2px solid var(--color-border);
+    background-color: #f5f5f5;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 15px 20px;
+    background-color: #f5f5f5;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+}
+
+.tab-button:hover {
+    background-color: #d7d7d7;
+}
+
+.tab-button.active {
+    background-color: var(--color-bg-light);
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+}
+
+.tab-content {
+    display: none;
+    padding: 30px;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .tab-button {
+        font-size: 0.85em;
+        padding: 12px 15px;
+    }
+
+    .tab-content {
+        padding: 20px;
+    }
+}
+
+/* ============================================
+   SECCIONES
+   ============================================ */
+
+.section {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.section h2 {
+    font-family: var(--font-heading);
+    font-size: 1.6em;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--color-primary);
+    letter-spacing: -0.01em;
+}
+
+.section-subtitle {
+    color: var(--color-text-light);
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+
+/* ============================================
+   FORMULARIOS
+   ============================================ */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--color-text);
+    font-size: 0.9em;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    background-color: var(--color-bg-light);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    background-color: #fafafa;
+}
+
+.form-group .currency {
+    position: absolute;
+    right: 12px;
+    top: 31px;
+    color: var(--color-text-light);
+    font-weight: 500;
+}
+
+.input-large {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+}
+
+.input-large:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+/* ============================================
+   RADIO BUTTONS Y CHECKBOXES
+   ============================================ */
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    gap: 8px;
+}
+
+.radio-label input[type="radio"],
+.radio-label input[type="checkbox"] {
+    cursor: pointer;
+    accent-color: var(--color-primary);
+}
+
+.radio-label span {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .radio-group {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+/* ============================================
+   SELECTS Y COMBOS
+   ============================================ */
+
+.combos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.combo-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.combo-group label {
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--color-text);
+    font-size: 0.9em;
+}
+
+.combo-group select {
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    font-size: 0.9em;
+    background-color: var(--color-bg-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.combo-group select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+/* ============================================
+   SABORES
+   ============================================ */
+
+.sabor-input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.sabor-input-group .input-large {
+    flex: 1;
+}
+
+.sabor-input-group .btn {
+    flex-shrink: 0;
+}
+
+.sabores-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+}
+
+.sabores-container h3 {
+    margin-bottom: 12px;
+    color: var(--color-text);
+}
+
+.sabores-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.sabores-list li {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    animation: slideIn 0.3s ease;
+}
+
+.sabores-list li button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.sabores-list li button:hover {
+    transform: scale(1.2);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ============================================
+   TABLA CARRITO
+   ============================================ */
+
+.tabla-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.tabla-carrito {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--color-bg-light);
+    box-shadow: var(--shadow);
+}
+
+.tabla-carrito thead {
+    background-color: #f5f5f5;
+}
+
+.tabla-carrito th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--color-border);
+    color: var(--color-text);
+}
+
+.tabla-carrito td {
+    padding: 12px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.tabla-carrito tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.tabla-carrito .btn-small {
+    padding: 4px 8px;
+    font-size: 0.8em;
+}
+
+.carrito-vacio {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--color-text-light);
+    font-size: 1.1em;
+}
+
+@media (max-width: 768px) {
+
+    .tabla-carrito th,
+    .tabla-carrito td {
+        padding: 8px;
+        font-size: 0.85em;
+    }
+}
+
+/* ============================================
+   BOTONES FINALES
+   ============================================ */
+
+.botones-finales {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.botones-finales .btn-large {
+    width: 100%;
+    max-width: none;
+}
+
+@media (max-width: 768px) {
+    .botones-finales .btn-large {
+        max-width: 100%;
+    }
+}
+
+/* ============================================
+   MODALES
+   ============================================ */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--color-bg-light);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    max-width: 500px;
+    width: 90%;
+    animation: slideIn 0.3s ease;
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+    color: var(--color-text);
+    font-size: 1.3em;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    color: var(--color-text-light);
+    line-height: 1.6;
+}
+
+.modal-content.error-content h2 {
+    color: var(--color-danger);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.modal-buttons .btn {
+    flex: 1;
+    max-width: 150px;
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+    }
+
+    .modal-buttons .btn {
+        max-width: 100%;
+    }
+}
+
+/* ============================================
+   RESUMEN
+   ============================================ */
+
+.resumen-contenido {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--color-primary);
+    margin-bottom: 20px;
+}
+
+.resumen-contenido p {
+    margin: 8px 0;
+    font-size: 0.95em;
+}
+
+.resumen-contenido .total {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid var(--color-border);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .tabs-container {
+        border-radius: 0;
+    }
+
+    .section {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .btn {
+        font-size: 0.85em;
+        padding: 10px 14px;
+    }
+
+    .btn-large {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content h1 {
+        font-size: 1.5em;
+    }
+
+    .header-content .subtitle {
+        font-size: 0.85em;
+    }
+
+    .section h2 {
+        font-size: 1.2em;
+    }
+
+    .tab-button {
+        font-size: 0.75em;
+        padding: 10px 10px;
+    }
+
+    .radio-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .combos-container {
+        grid-template-columns: 1fr;
+    }
+
+    .tabla-carrito th,
+    .tabla-carrito td {
+        padding: 6px;
+        font-size: 0.75em;
+    }
+}
+
+/* ============================================
+   ANIMACIONES Y TRANSICIONES
+   ============================================ */
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #999999;
+}
+
+/* Focus visible para accesibilidad */
+:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   STOCK E INVENTARIO
+   ============================================ */
+
+.stock-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.stock-card {
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.stock-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stock-card h3 {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: var(--color-text);
+}
+
+.stock-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.stock-control input {
+    width: 100px;
+    text-align: center;
+    font-size: 1.2em;
+    padding: 10px;
+}
+
+.stock-control .unit {
+    color: var(--color-text-light);
+    font-weight: 500;
+}
+
+.add-product-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    align-items: end;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    background-color: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 120px;
+}
+
+.product-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-lg);
+    transform: scale(1.02);
+}
+
+.product-card h4 {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: var(--color-text);
+}
+
+.product-card .price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+.product-card .stock {
+    font-size: 0.85em;
+    color: var(--color-text-light);
+}
+
+.product-card.no-stock {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #f0f0f0;
+}
+
+.product-card.no-stock:hover {
+    border-color: var(--color-border);
+    transform: none;
+    box-shadow: none;
+}
+
+.action-wrapper {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: var(--color-text-light);
+    font-style: italic;
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+}
+
+/* ============================================
+   LECTOR DE CÓDIGO DE BARRAS
+   ============================================ */
+
+.barcode-scanner-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, #f0faff 0%, #e8f8f0 100%);
+    border: 2px dashed var(--color-accent);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(0, 174, 199, 0.1);
+    animation: barcodeGlow 3s ease-in-out infinite;
+}
+
+@keyframes barcodeGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 2px 10px rgba(0, 174, 199, 0.1);
+    }
+
+    50% {
+        box-shadow: 0 4px 20px rgba(0, 174, 199, 0.3);
+    }
+}
+
+.barcode-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--color-accent);
+    font-size: 0.95em;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.barcode-icon {
+    font-size: 1.3em;
+}
+
+.barcode-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--color-accent);
+    border-radius: 10px;
+    font-size: 1.05em;
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    background-color: white;
+    color: var(--color-text);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.barcode-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(231, 50, 56, 0.15);
+    background-color: #fffef5;
+}
+
+.barcode-input::placeholder {
+    color: #b0bec5;
+    font-style: italic;
+    font-family: var(--font-body);
+    letter-spacing: normal;
+}
+
+@media (max-width: 768px) {
+    .barcode-scanner-wrapper {
+        padding: 14px 15px;
+    }
+
+    .barcode-input {
+        font-size: 1em;
+    }
+}
+
+/* ============================================
+   BUSCADOR DE PRODUCTOS ENVASADOS
+   ============================================ */
+
+.product-search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 10px 16px;
+    background: #f8f8f8;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--border-radius);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-search-wrapper:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(231, 50, 56, 0.1);
+    background: #fff;
+}
+
+.search-icon {
+    font-size: 1.2em;
+    flex-shrink: 0;
+}
+
+.product-search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 0.95em;
+    font-family: var(--font-body);
+    color: var(--color-text);
+    outline: none;
+}
+
+.product-search-input::placeholder {
+    color: #b0bec5;
+    font-style: italic;
+}
+
+/* ============================================
+   VENTAS DIARIAS
+   ============================================ */
+
+.ventas-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.ventas-header-row h2 {
+    margin-bottom: 0;
+}
+
+.ventas-header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.date-filter-input {
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    font-size: 0.9em;
+    font-family: var(--font-body);
+    background: white;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.date-filter-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(231,50,56,0.1);
+}
+
+.ventas-diarias-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.venta-dia-card {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--border-radius);
+    padding: 16px 20px;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.venta-dia-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+}
+
+.venta-dia-fecha {
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 0.95em;
+    font-family: var(--font-heading);
+}
+
+.venta-dia-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.venta-dia-count {
+    font-size: 0.85em;
+    color: var(--color-text-light);
+}
+
+.venta-dia-total {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+}
+
+/* ============================================
+   MODAL EDICIÓN (más ancho)
+   ============================================ */
+
+.modal-edit {
+    max-width: 460px;
+}
+
+.modal-edit .form-group input {
+    width: 100%;
+    padding: 9px 12px;
+    font-size: 0.95em;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.modal-edit .form-group input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(231,50,56,0.1);
+}
+
+.modal-edit .modal-buttons {
+    margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+    .ventas-header-row {
+        flex-direction: column;
+    }
+    .ventas-diarias-container {
+        grid-template-columns: 1fr;
+    }
+}
