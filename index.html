@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vita - Sistema de Gestión</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Encabezado -->
+        <header class="header">
+            <div class="header-brand">
+                <img src="logo de vita.jpeg" alt="Vita Logo" class="header-logo">
+                <div class="header-content">
+                    <h1>Vita</h1>
+                    <p class="subtitle">Sistema de Gestión Integral</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="btnVentasHeader" class="btn btn-info" title="Ver ventas totales (Ctrl+V)">
+                    📊 Ver Ventas
+                </button>
+            </div>
+        </header>
+
+        <!-- Barra de herramientas -->
+        <nav class="toolbar">
+            <button id="btnGuardarPrecios" class="btn btn-success" title="Guardar precios (Ctrl+S)">
+                💾 Guardar Precios
+            </button>
+            <button id="btnVerVentas" class="btn btn-info" title="Ver ventas totales">
+                📊 Ver Ventas Totales
+            </button>
+            <button id="btnImprimirTicket" class="btn btn-warning" title="Imprimir ticket">
+                🖨️ Imprimir Ticket
+            </button>
+        </nav>
+
+        <!-- Contenido principal con pestañas -->
+        <div class="tabs-container">
+            <!-- Botones de pestañas -->
+            <div class="tabs-buttons">
+                <button class="tab-button active" data-tab="tab-config">⚙️ Configuración</button>
+                <button class="tab-button" data-tab="tab-compra">🛒 Compra / Venta</button>
+                <button class="tab-button" data-tab="tab-stock">📦 Stock e Inventario</button>
+                <button class="tab-button" data-tab="tab-ventas">📅 Ventas</button>
+            </div>
+
+            <!-- PESTAÑA: CONFIGURACIÓN -->
+            <div id="tab-config" class="tab-content active">
+                <!-- Sección de Precios -->
+                <section class="section">
+                    <h2>💰 Configuración de Precios</h2>
+                    <p class="section-subtitle">Configura los precios de cada tipo de helado:</p>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="precio1Gusto">1 sabor (cucurucho):</label>
+                            <input type="text" id="precio1Gusto" placeholder="0.00"
+                                title="Use punto o coma para decimales. Ej: 1.50 o 1,50">
+                            <span class="currency">$</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="precio2Gustos">2 sabores (cucurucho):</label>
+                            <input type="text" id="precio2Gustos" placeholder="0.00"
+                                title="Use punto o coma para decimales. Ej: 1.50 o 1,50">
+                            <span class="currency">$</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="precio3Gustos">3 sabores (cucurucho):</label>
+                            <input type="text" id="precio3Gustos" placeholder="0.00"
+                                title="Use punto o coma para decimales. Ej: 1.50 o 1,50">
+                            <span class="currency">$</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="precio1_4">Pote 1/4 Kg:</label>
+                            <input type="text" id="precio1_4" placeholder="0.00"
+                                title="Use punto o coma para decimales. Ej: 1.50 o 1,50">
+                            <span class="currency">$</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="precio1_2">Pote 1/2 Kg:</label>
+                            <input type="text" id="precio1_2" placeholder="0.00"
+                                title="Use punto o coma para decimales. Ej: 1.50 o 1,50">
+                            <span class="currency">$</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="precio1kg">Pote 1 Kg:</label>
+                            <input type="text" id="precio1kg" placeholder="0.00"
+                                title="Use punto o coma para decimales. Ej: 1.50 o 1,50">
+                            <span class="currency">$</span>
+                        </div>
+                    </div>
+
+                    <button id="btnGuardarCambios" class="btn btn-success btn-large">
+                        💾 Guardar Cambios de Precios
+                    </button>
+                </section>
+
+                <!-- Sección de Sabores -->
+                <section class="section">
+                    <h2>🍨 Gestión de Sabores</h2>
+
+                    <div class="sabor-input-group">
+                        <input type="text" id="inputSaborNuevo" placeholder="Ingresa el nombre del nuevo sabor..."
+                            class="input-large">
+                        <button id="btnAgregarSabor" class="btn btn-success">➕ Agregar Sabor</button>
+                    </div>
+
+                    <div class="sabores-container">
+                        <h3>Sabores Disponibles:</h3>
+                        <ul id="listaSabores" class="sabores-list"></ul>
+                    </div>
+                </section>
+            </div>
+
+            <!-- PESTAÑA: COMPRA -->
+            <div id="tab-compra" class="tab-content">
+                <!-- Selección de tipo de venta -->
+                <section class="section">
+                    <h2>🛍️ ¿Qué desea vender hoy?</h2>
+
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="tipoVenta" value="mostrador" checked>
+                            <span>� Helado de Mostrador</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="tipoVenta" value="envasados">
+                            <span>📦 Productos Envasados / Kiosco</span>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- CONTENEDOR VENTA MOSTRADOR (Lo que ya existía) -->
+                <div id="contenedorMostrador">
+                    <!-- Selección de tipo de helado -->
+                    <section class="section">
+                        <h2>🍧 Selecciona el Formato</h2>
+
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="tipoHelado" value="gustos" checked>
+                                <span>Por Gusto (Cucurucho)</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="tipoHelado" value="potes">
+                                <span>En Pote</span>
+                            </label>
+                        </div>
+                    </section>
+
+                    <!-- Helado por gustos -->
+                    <section class="section" id="seccionGustos">
+                        <h2>🍨 Helado por Gusto</h2>
+
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="numSabores" value="1" checked>
+                                <span>1 sabor</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="numSabores" value="2">
+                                <span>2 sabores</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="numSabores" value="3">
+                                <span>3 sabores</span>
+                            </label>
+                        </div>
+
+                        <div class="combos-container">
+                            <div class="combo-group">
+                                <label for="combo1">Sabor 1:</label>
+                                <select id="combo1"></select>
+                            </div>
+                            <div class="combo-group" id="grupo-combo2" style="display: none;">
+                                <label for="combo2">Sabor 2:</label>
+                                <select id="combo2"></select>
+                            </div>
+                            <div class="combo-group" id="grupo-combo3" style="display: none;">
+                                <label for="combo3">Sabor 3:</label>
+                                <select id="combo3"></select>
+                            </div>
+                        </div>
+
+                        <!-- Botón agregar carrito Mostrador -->
+                        <div class="action-wrapper">
+                            <button id="btnAgregarCarrito" class="btn btn-success btn-large">
+                                🛒 Agregar Helado al Carrito
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Helado en pote -->
+                    <section class="section" id="seccionPotes" style="display: none;">
+                        <h2>🍯 Helado en Pote</h2>
+
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="tamanioPote" value="1_4">
+                                <span>1/4 Kg</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="tamanioPote" value="1_2">
+                                <span>1/2 Kg</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="tamanioPote" value="1kg" checked>
+                                <span>1 Kg</span>
+                            </label>
+                        </div>
+
+                        <!-- Botón agregar carrito Potes (mismo ID para simplificar lógica o nuevo wrapper) -->
+                        <div class="action-wrapper">
+                            <button id="btnAgregarPoteCarrito" class="btn btn-success btn-large">
+                                🛒 Agregar Pote al Carrito
+                            </button>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- CONTENEDOR PRODUCTOS ENVASADOS (Nuevo) -->
+                <div id="contenedorEnvasados" style="display: none;">
+                    <section class="section">
+                        <h2>📦 Productos Envasados Disponibles</h2>
+
+                        <!-- Buscador de productos -->
+                        <div class="product-search-wrapper">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="buscadorProductos" placeholder="Buscar producto por nombre..."
+                                autocomplete="off" class="product-search-input">
+                        </div>
+
+                        <!-- Campo de escaneo de código de barras -->
+                        <div class="barcode-scanner-wrapper">
+                            <label for="barcode-input-vita" class="barcode-label">
+                                <span class="barcode-icon">📊</span> Escanear código de barras:
+                            </label>
+                            <input type="text" id="barcode-input-vita"
+                                placeholder="Escanea o escribe el código... (presiona Enter)" autocomplete="off"
+                                class="barcode-input">
+                        </div>
+
+                        <div id="gridProductosEnvasados" class="products-grid">
+                            <!-- Se llena dinámicamente con JS -->
+                            <p class="empty-state">No hay productos cargados en el inventario.</p>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Tabla del carrito -->
+                <section class="section">
+                    <h2>🛍️ Carrito de Compras</h2>
+
+                    <div class="tabla-container">
+                        <table id="tablaCarrito" class="tabla-carrito">
+                            <thead>
+                                <tr>
+                                    <th>Descripción</th>
+                                    <th>Precio</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpoTabla">
+                            </tbody>
+                        </table>
+                        <div id="carritoVacio" class="carrito-vacio">
+                            <p>El carrito está vacío</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Botones finales -->
+                <section class="section botones-finales">
+                    <button id="btnFinalizarCompra" class="btn btn-success btn-large">
+                        ✅ Finalizar Compra
+                    </button>
+                    <button id="btnVerVentasCompra" class="btn btn-info btn-large">
+                        📊 Ver Ventas Totales
+                    </button>
+                    <button id="btnImprimirTicketCompra" class="btn btn-warning btn-large">
+                        🖨️ Imprimir Ticket
+                    </button>
+                </section>
+            </div>
+
+            <!-- PESTAÑA: INVENTARIO (NUEVA) -->
+            <div id="tab-stock" class="tab-content">
+                <!-- Gestión de Insumos (Mostrador) -->
+                <section class="section">
+                    <h2>🥡 Stock de Insumos (Mostrador)</h2>
+                    <p class="section-subtitle">Control de envases para helado servido manualmente.</p>
+
+                    <div class="stock-cards">
+                        <div class="stock-card">
+                            <h3>🍦 Cucuruchos</h3>
+                            <div class="stock-control">
+                                <input type="number" id="stockCucuruchos" value="0" min="0">
+                                <span class="unit">unid.</span>
+                            </div>
+                        </div>
+                        <div class="stock-card">
+                            <h3>🥡 Potes 1/4 Kg</h3>
+                            <div class="stock-control">
+                                <input type="number" id="stockPotes1_4" value="0" min="0">
+                                <span class="unit">unid.</span>
+                            </div>
+                        </div>
+                        <div class="stock-card">
+                            <h3>🥡 Potes 1/2 Kg</h3>
+                            <div class="stock-control">
+                                <input type="number" id="stockPotes1_2" value="0" min="0">
+                                <span class="unit">unid.</span>
+                            </div>
+                        </div>
+                        <div class="stock-card">
+                            <h3>🥡 Potes 1 Kg</h3>
+                            <div class="stock-control">
+                                <input type="number" id="stockPotes1kg" value="0" min="0">
+                                <span class="unit">unid.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="btnActualizarInsumos" class="btn btn-success" style="margin-top: 20px;">
+                        💾 Actualizar Stock de Insumos
+                    </button>
+                </section>
+
+                <!-- Gestión de Productos Envasados -->
+                <section class="section">
+                    <h2>📦 Gestión de Productos Envasados</h2>
+                    <p class="section-subtitle">Agrega aquí los helados de marca, palitos, postres, etc.</p>
+
+                    <div class="add-product-form">
+                        <div class="form-group">
+                            <label>Nombre del Producto:</label>
+                            <input type="text" id="nuevoProdNombre" placeholder="Ej: Almendrado X 6">
+                        </div>
+                        <div class="form-group">
+                            <label>Precio ($):</label>
+                            <input type="number" id="nuevoProdPrecio" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Stock Inicial:</label>
+                            <input type="number" id="nuevoProdStock" placeholder="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Código de Barras (Opcional):</label>
+                            <input type="text" id="nuevoProdBarcode" placeholder="Ej: 7790895001017">
+                        </div>
+                        <button id="btnAgregarProducto" class="btn btn-success">➕ Agregar</button>
+                    </div>
+
+                    <div class="tabla-container" style="margin-top: 20px;">
+                        <table class="tabla-carrito" id="tablaProductosStock">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Stock Actual</th>
+                                    <th>Código de Barras</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodyProductosStock">
+                                <!-- Se llena vía JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- PESTAÑA: VENTAS -->
+            <div id="tab-ventas" class="tab-content">
+
+                <!-- Resumen ventas del día -->
+                <section class="section">
+                    <div class="ventas-header-row">
+                        <div>
+                            <h2>📅 Ventas Diarias</h2>
+                            <p class="section-subtitle">Resumen de ventas agrupadas por día.</p>
+                        </div>
+                        <div class="ventas-header-actions">
+                            <input type="date" id="filtroFechaVentas" class="date-filter-input">
+                            <button id="btnFiltrarVentas" class="btn btn-info">🔍 Filtrar</button>
+                            <button id="btnMostrarTodasVentas" class="btn btn-secondary">📋 Todas</button>
+                        </div>
+                    </div>
+
+                    <div id="resumenVentasDiarias" class="ventas-diarias-container">
+                        <!-- Se llena vía JS -->
+                        <p class="empty-state">No hay ventas registradas.</p>
+                    </div>
+                </section>
+
+                <!-- Agregar venta manual -->
+                <section class="section">
+                    <h2>➕ Agregar Venta Manual</h2>
+                    <p class="section-subtitle">Registra una venta manualmente en el historial.</p>
+
+                    <div class="add-product-form">
+                        <div class="form-group">
+                            <label>Descripción:</label>
+                            <input type="text" id="ventaManualDesc" placeholder="Ej: Helado de vainilla">
+                        </div>
+                        <div class="form-group">
+                            <label>Precio ($):</label>
+                            <input type="number" id="ventaManualPrecio" placeholder="0.00" step="0.01" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha:</label>
+                            <input type="datetime-local" id="ventaManualFecha">
+                        </div>
+                        <button id="btnAgregarVentaManual" class="btn btn-success">➕ Agregar</button>
+                    </div>
+                </section>
+
+                <!-- Historial completo -->
+                <section class="section">
+                    <div class="ventas-header-row">
+                        <h2>🧾 Historial de Ventas</h2>
+                        <button id="btnLimpiarHistorial" class="btn btn-danger">🗑️ Limpiar Historial</button>
+                    </div>
+                    <div class="tabla-container" style="margin-top: 15px;">
+                        <table class="tabla-carrito" id="tablaHistorialVentas">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Descripción</th>
+                                    <th>Total</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodyHistorialVentas">
+                                <!-- Se llena vía JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modales -->
+    <!-- Modal de confirmación -->
+    <div id="modalConfirmacion" class="modal">
+        <div class="modal-content">
+            <h2 id="tituloConfirmacion">Confirmación</h2>
+            <p id="textoConfirmacion"></p>
+            <div class="modal-buttons">
+                <button id="btnConfirmarSi" class="btn btn-success">Sí, confirmar</button>
+                <button id="btnConfirmarNo" class="btn btn-secondary">No, cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de información -->
+    <div id="modalInfo" class="modal">
+        <div class="modal-content">
+            <h2 id="tituloInfo">Información</h2>
+            <p id="textoInfo"></p>
+            <div class="modal-buttons">
+                <button id="btnCerrarInfo" class="btn btn-success">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de error -->
+    <div id="modalError" class="modal">
+        <div class="modal-content error-content">
+            <h2>❌ Error</h2>
+            <p id="textoError"></p>
+            <div class="modal-buttons">
+                <button id="btnCerrarError" class="btn btn-secondary">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edición de Artículo -->
+    <div id="modalEditarArticulo" class="modal">
+        <div class="modal-content modal-edit">
+            <h2>✏️ Editar Artículo</h2>
+            <input type="hidden" id="editArticuloId">
+            <div class="form-group" style="margin-bottom:14px;">
+                <label>Nombre del Producto:</label>
+                <input type="text" id="editArticuloNombre" placeholder="Nombre...">
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+                <label>Precio ($):</label>
+                <input type="number" id="editArticuloPrecio" placeholder="0.00" step="0.01" min="0">
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+                <label>Stock:</label>
+                <input type="number" id="editArticuloStock" placeholder="0" min="0">
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+                <label>Código de Barras:</label>
+                <input type="text" id="editArticuloBarcode" placeholder="Código...">
+            </div>
+            <div class="modal-buttons">
+                <button id="btnGuardarEditArticulo" class="btn btn-success">💾 Guardar</button>
+                <button id="btnCancelarEditArticulo" class="btn btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edición de Venta -->
+    <div id="modalEditarVenta" class="modal">
+        <div class="modal-content modal-edit">
+            <h2>✏️ Editar Venta</h2>
+            <input type="hidden" id="editVentaIdx">
+            <div class="form-group" style="margin-bottom:14px;">
+                <label>Descripción (primer ítem):</label>
+                <input type="text" id="editVentaDesc" placeholder="Descripción...">
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+                <label>Total ($):</label>
+                <input type="number" id="editVentaTotal" placeholder="0.00" step="0.01" min="0">
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+                <label>Fecha:</label>
+                <input type="datetime-local" id="editVentaFecha">
+            </div>
+            <div class="modal-buttons">
+                <button id="btnGuardarEditVenta" class="btn btn-success">💾 Guardar</button>
+                <button id="btnCancelarEditVenta" class="btn btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Resumen de Compra -->
+    <div id="modalResumen" class="modal">
+        <div class="modal-content">
+            <h2>📋 Resumen de Compra</h2>
+            <div id="contenidoResumen" class="resumen-contenido"></div>
+            <div class="modal-buttons">
+                <button id="btnCerrarResumen" class="btn btn-success">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- SheetJS (XLSX) para import/export Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Input y botones para Excel -->
+    <input type="file" id="inputExcel" accept=".xlsx,.xls" style="display:none" />
+    <script>
+        // Mover botones a la barra de herramientas mediante DOM para mantener HTML limpio
+        document.addEventListener('DOMContentLoaded', () => {
+            const toolbar = document.querySelector('.toolbar');
+            if (toolbar) {
+                const btnImport = document.createElement('button');
+                btnImport.id = 'btnImportarExcel';
+                btnImport.className = 'btn btn-secondary';
+                btnImport.textContent = '📥 Importar Excel';
+
+                const btnExport = document.createElement('button');
+                btnExport.id = 'btnExportarExcel';
+                btnExport.className = 'btn btn-secondary';
+                btnExport.textContent = '📤 Exportar Excel';
+
+                toolbar.appendChild(btnImport);
+                toolbar.appendChild(btnExport);
+            }
+        });
+    </script>
+    <script src="app.js"></script>
+</body>
+
+</html>
