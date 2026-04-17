@@ -232,6 +232,7 @@ class HeladeriaApp {
             filtroFechaVentas: document.getElementById('filtroFechaVentas'),
             btnFiltrarVentas: document.getElementById('btnFiltrarVentas'),
             btnMostrarTodasVentas: document.getElementById('btnMostrarTodasVentas'),
+            btnImprimirResumenDia: document.getElementById('btnImprimirResumenDia'),
             bodyHistorialVentas: document.getElementById('bodyHistorialVentas'),
 
             ventaManualDesc: document.getElementById('ventaManualDesc'),
@@ -348,6 +349,9 @@ class HeladeriaApp {
                 if (this.elementos.filtroFechaVentas) this.elementos.filtroFechaVentas.value = '';
                 this.renderVentasDiarias();
             });
+        }
+        if (this.elementos.btnImprimirResumenDia) {
+            this.elementos.btnImprimirResumenDia.addEventListener('click', () => this.imprimirResumenVentasDia());
         }
         if (this.elementos.btnAgregarVentaManual) {
             this.elementos.btnAgregarVentaManual.addEventListener('click', () => this.agregarVentaManual());
@@ -1795,6 +1799,244 @@ class HeladeriaApp {
         setTimeout(() => {
             ventanaImpresion.print();
             ventanaImpresion.close();
+        }, 250);
+    }
+
+    imprimirResumenVentasDia() {
+        // Obtener la fecha seleccionada (filtro) o la actual
+        const filtroFecha = this.elementos.filtroFechaVentas ? this.elementos.filtroFechaVentas.value : '';
+        
+        // Filtrar ventas por la fecha seleccionada
+        let ventasDia = [];
+        let fechaMostrar = '';
+        
+        if (filtroFecha) {
+            // Usa la fecha filtrada
+            ventasDia = this.ventas.filter(venta => {
+                const ventaDate = new Date(venta.fecha).toISOString().slice(0, 10);
+                return ventaDate === filtroFecha;
+            });
+            fechaMostrar = new Date(filtroFecha + 'T00:00:00').toLocaleDateString('es-AR', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        } else {
+            // Usa el día actual
+            const hoy = new Date().toISOString().slice(0, 10);
+            ventasDia = this.ventas.filter(venta => {
+                const ventaDate = new Date(venta.fecha).toISOString().slice(0, 10);
+                return ventaDate === hoy;
+            });
+            const today = new Date();
+            fechaMostrar = today.toLocaleDateString('es-AR', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+        
+        // Calcular totales
+        const totalVentas = ventasDia.reduce((suma, venta) => suma + (venta.total || 0), 0);
+        const cantidadVentas = ventasDia.length;
+        
+        // Crear ventana de impresión
+        const ventanaImpresion = window.open('', '_blank');
+        
+        // Generar tabla de detalles de ventas
+        let detallesHtml = ventasDia.map(venta => {
+            const fecha = new Date(venta.fecha).toLocaleTimeString('es-AR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            return `
+                <tr>
+                    <td>${fecha}</td>
+                    <td>${venta.descripcion || 'Venta'}</td>
+                    <td style="text-align: right;">$${(venta.total || 0).toFixed(2)}</td>
+                </tr>
+            `;
+        }).join('');
+        
+        // Si no hay ventas, mostrar mensaje
+        if (cantidadVentas === 0) {
+            detallesHtml = '<tr><td colspan="3" style="text-align: center; padding: 20px;">No hay ventas registradas para este día.</td></tr>';
+        }
+        
+        const fecha = new Date().toLocaleDateString('es-ES') + ' ' + new Date().toLocaleTimeString('es-ES');
+        
+        let reporteHtml = `
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <title>Resumen de Ventas</title>
+                <style>
+                    * { margin: 0; padding: 0; }
+                    body {
+                        font-family: 'Courier New', monospace;
+                        background-color: #f5f5f5;
+                        padding: 20px;
+                    }
+                    .reporte {
+                        background-color: white;
+                        padding: 30px;
+                        border: 1px solid #ddd;
+                        max-width: 600px;
+                        margin: 0 auto;
+                    }
+                    .encabezado {
+                        text-align: center;
+                        margin-bottom: 20px;
+                        border-bottom: 2px solid #000;
+                        padding-bottom: 15px;
+                    }
+                    .encabezado h1 {
+                        font-size: 24px;
+                        margin-bottom: 5px;
+                    }
+                    .encabezado p {
+                        font-size: 12px;
+                        color: #666;
+                    }
+                    .fecha-dia {
+                        text-align: center;
+                        font-size: 14px;
+                        font-weight: bold;
+                        margin: 10px 0;
+                        padding: 10px 0;
+                        background-color: #f9f9f9;
+                        border: 1px solid #eee;
+                    }
+                    .detalles {
+                        margin: 20px 0;
+                    }
+                    .tabla-ventas {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 15px 0;
+                        font-size: 12px;
+                    }
+                    .tabla-ventas thead {
+                        background-color: #f0f0f0;
+                        border-bottom: 2px solid #000;
+                    }
+                    .tabla-ventas th {
+                        padding: 8px;
+                        text-align: left;
+                        font-weight: bold;
+                    }
+                    .tabla-ventas td {
+                        padding: 8px;
+                        border-bottom: 1px solid #ddd;
+                    }
+                    .tabla-ventas tbody tr:last-child td {
+                        border-bottom: 2px solid #000;
+                    }
+                    .resumen {
+                        margin: 20px 0;
+                        padding: 15px;
+                        background-color: #f9f9f9;
+                        border: 1px solid #ddd;
+                        text-align: center;
+                    }
+                    .resumen-item {
+                        margin: 8px 0;
+                        font-size: 13px;
+                    }
+                    .resumen-item label {
+                        font-weight: bold;
+                        display: inline-block;
+                        width: 120px;
+                        text-align: left;
+                    }
+                    .resumen-item .valor {
+                        font-weight: bold;
+                        font-size: 14px;
+                    }
+                    .total-venta {
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #2ecc71;
+                        margin-top: 10px;
+                        padding-top: 10px;
+                        border-top: 2px solid #000;
+                    }
+                    .pie {
+                        text-align: center;
+                        margin-top: 30px;
+                        padding-top: 20px;
+                        border-top: 1px dashed #999;
+                        font-size: 11px;
+                        color: #666;
+                    }
+                    .fecha-impresion {
+                        text-align: right;
+                        font-size: 11px;
+                        color: #999;
+                        margin-bottom: 15px;
+                    }
+                    @media print {
+                        body { padding: 0; background: white; }
+                        .reporte { border: none; box-shadow: none; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="reporte">
+                    <div class="encabezado">
+                        <h1>🍦 VITA 🍦</h1>
+                        <p>Sistema de Gestión Integral</p>
+                    </div>
+                    
+                    <div class="fecha-impresion">
+                        Impreso: ${fecha}
+                    </div>
+                    
+                    <div class="fecha-dia">
+                        RESUMEN DE VENTAS DEL DÍA<br>
+                        📅 ${fechaMostrar}
+                    </div>
+                    
+                    <div class="detalles">
+                        <table class="tabla-ventas">
+                            <thead>
+                                <tr>
+                                    <th>Hora</th>
+                                    <th>Descripción</th>
+                                    <th style="text-align: right;">Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${detallesHtml}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="resumen">
+                        <div class="resumen-item">
+                            <label>Cantidad de ventas:</label>
+                            <span class="valor">${cantidadVentas}</span>
+                        </div>
+                        <div class="total-venta">
+                            TOTAL DEL DÍA: $${totalVentas.toFixed(2)}
+                        </div>
+                    </div>
+                    
+                    <div class="pie">
+                        <p>Reporte generado automáticamente</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `;
+        
+        ventanaImpresion.document.write(reporteHtml);
+        ventanaImpresion.document.close();
+        setTimeout(() => {
+            ventanaImpresion.print();
+            // Optionally close after print (some browsers require user confirmation)
+            // ventanaImpresion.close();
         }, 250);
     }
 
