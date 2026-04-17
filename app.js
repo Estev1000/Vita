@@ -1849,13 +1849,26 @@ class HeladeriaApp {
                 hour: '2-digit', 
                 minute: '2-digit' 
             });
-            return `
-                <tr>
-                    <td>${fecha}</td>
-                    <td>${venta.descripcion || 'Venta'}</td>
-                    <td style="text-align: right;">$${(venta.total || 0).toFixed(2)}</td>
-                </tr>
-            `;
+            
+            // Si la venta tiene items, mostrar cada uno
+            if (venta.items && venta.items.length > 0) {
+                return venta.items.map((item, index) => `
+                    <tr>
+                        <td>${index === 0 ? fecha : ''}</td>
+                        <td>${item.descripcion || 'Articulo'}</td>
+                        <td style="text-align: right;">$${(item.precio || 0).toFixed(2)}</td>
+                    </tr>
+                `).join('');
+            } else {
+                // Fallback si no hay items (para ventas antiguas sin estructura)
+                return `
+                    <tr>
+                        <td>${fecha}</td>
+                        <td>${venta.descripcion || 'Venta'}</td>
+                        <td style="text-align: right;">$${(venta.total || 0).toFixed(2)}</td>
+                    </tr>
+                `;
+            }
         }).join('');
         
         // Si no hay ventas, mostrar mensaje
