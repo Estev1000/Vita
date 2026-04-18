@@ -230,6 +230,8 @@ class HeladeriaApp {
             // Ventas tab
             resumenVentasDiarias: document.getElementById('resumenVentasDiarias'),
             filtroFechaVentas: document.getElementById('filtroFechaVentas'),
+            filtroHoraInicio: document.getElementById('filtroHoraInicio'),
+            filtroHoraFin: document.getElementById('filtroHoraFin'),
             btnFiltrarVentas: document.getElementById('btnFiltrarVentas'),
             btnMostrarTodasVentas: document.getElementById('btnMostrarTodasVentas'),
             btnImprimirResumenDia: document.getElementById('btnImprimirResumenDia'),
@@ -1806,7 +1808,11 @@ class HeladeriaApp {
         // Obtener la fecha seleccionada (filtro) o la actual
         const filtroFecha = this.elementos.filtroFechaVentas ? this.elementos.filtroFechaVentas.value : '';
         
-        // Filtrar ventas por la fecha seleccionada
+        // Obtener el rango horario
+        const horaInicio = this.elementos.filtroHoraInicio ? this.elementos.filtroHoraInicio.value : '08:00';
+        const horaFin = this.elementos.filtroHoraFin ? this.elementos.filtroHoraFin.value : '22:00';
+        
+        // Filtrar ventas por la fecha seleccionada y rango horario
         let ventasDia = [];
         let fechaMostrar = '';
         
@@ -1814,7 +1820,11 @@ class HeladeriaApp {
             // Usa la fecha filtrada
             ventasDia = this.ventas.filter(venta => {
                 const ventaDate = new Date(venta.fecha).toISOString().slice(0, 10);
-                return ventaDate === filtroFecha;
+                if (ventaDate !== filtroFecha) return false;
+                
+                // Filtrar por rango horario
+                const ventaHora = new Date(venta.fecha).toTimeString().slice(0, 5); // HH:MM
+                return ventaHora >= horaInicio && ventaHora <= horaFin;
             });
             fechaMostrar = new Date(filtroFecha + 'T00:00:00').toLocaleDateString('es-AR', { 
                 year: 'numeric', 
@@ -1826,7 +1836,11 @@ class HeladeriaApp {
             const hoy = new Date().toISOString().slice(0, 10);
             ventasDia = this.ventas.filter(venta => {
                 const ventaDate = new Date(venta.fecha).toISOString().slice(0, 10);
-                return ventaDate === hoy;
+                if (ventaDate !== hoy) return false;
+                
+                // Filtrar por rango horario
+                const ventaHora = new Date(venta.fecha).toTimeString().slice(0, 5); // HH:MM
+                return ventaHora >= horaInicio && ventaHora <= horaFin;
             });
             const today = new Date();
             fechaMostrar = today.toLocaleDateString('es-AR', { 
@@ -2008,7 +2022,8 @@ class HeladeriaApp {
                     
                     <div class="fecha-dia">
                         RESUMEN DE VENTAS DEL DÍA<br>
-                        📅 ${fechaMostrar}
+                        📅 ${fechaMostrar}<br>
+                        ⏰ Horario: ${horaInicio} a ${horaFin}
                     </div>
                     
                     <div class="detalles">

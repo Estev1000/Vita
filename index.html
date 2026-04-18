@@ -391,6 +391,11 @@
                         </div>
                         <div class="ventas-header-actions">
                             <input type="date" id="filtroFechaVentas" class="date-filter-input">
+                            <div class="horario-filter">
+                                <input type="time" id="filtroHoraInicio" class="time-filter-input" value="08:00" min="00:00" max="23:59">
+                                <span>a</span>
+                                <input type="time" id="filtroHoraFin" class="time-filter-input" value="00:00" min="00:00" max="23:59">
+                            </div>
                             <button id="btnFiltrarVentas" class="btn btn-info">🔍 Filtrar</button>
                             <button id="btnMostrarTodasVentas" class="btn btn-secondary">📋 Todas</button>
                             <button id="btnImprimirResumenDia" class="btn btn-warning">🖨️ Imprimir Resumen</button>
